@@ -3,6 +3,7 @@ import { LandingpageHeaderComponent } from './components/landingpage-header/land
 import { LandingpageFooterComponent } from './components/landingpage-footer/landingpage-footer.component';
 import { LandingpageHeroComponent } from './components/landingpage-hero/landingpage-hero.component';
 import { LandingpageServicesComponent } from './components/landingpage-services/landingpage-services.component';
+import { LandingpageEvidenceComponent } from './components/landingpage-evidence/landingpage-evidence.component';
 
 @Component({
   selector: 'app-landingpage',
@@ -12,6 +13,7 @@ import { LandingpageServicesComponent } from './components/landingpage-services/
     LandingpageFooterComponent,
     LandingpageHeroComponent,
     LandingpageServicesComponent,
+    LandingpageEvidenceComponent,
   ],
   templateUrl: './landingpage.component.html',
   styleUrl: './landingpage.component.css',
