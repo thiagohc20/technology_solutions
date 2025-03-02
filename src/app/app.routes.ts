@@ -1,3 +1,4 @@
+/*LandingPage */
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LandingpageAboutComponent } from './landingpage/landingpage-about/landingpage-about.component';
 import { LandingpageHomeComponent } from './landingpage/landingpage-home/landingpage-home.component';
@@ -5,6 +6,10 @@ import { LandingpageServiceComponent } from './landingpage/landingpage-service/l
 import { LandingpagePrivacyComponent } from './landingpage/landingpage-privacy/landingpage-privacy.component';
 import { LandingpageContactComponent } from './landingpage/landingpage-contact/landingpage-contact.component';
 import { LandingpageHireComponent } from './landingpage/landingpage-hire/landingpage-hire.component';
+/* Sistema */
+import { SystemComponent } from './system/system.component';
+import { SystemLoginComponent } from './system/system-login/system-login.component';
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -45,11 +50,11 @@ export const routes: Routes = [
   },
   {
     path: 'sistema',
-    component: LandingpageComponent,
+    component: SystemComponent,
     children: [
       {
         path: '',
-        component: LandingpageServiceComponent,
+        component: SystemLoginComponent,
       },
       {
         path: 'cadastrar',

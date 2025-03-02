@@ -1,1 +1,28 @@
-<p>system-login works!</p>
+<div class="h-screen flex w-full">
+  <div
+    class="flex flex-col gap-4 justify-center w-full w-full max-w-[500px] p-8 bg-zinc-900"
+  >
+    <h1 class="text-lg sm:text-4xl text-white font-bold flex flex-col">
+      <span>TECHNOLOGY</span><span class="text sm:text-2xl">SOLUTIONS</span>
+    </h1>
+    <p-floatlabel class="w-full">
+      <p-inputmask
+        mask="999.999.999-99"
+        placeholder="Exemplo xxx.xxx.xxx-xx"
+        styleClass="w-full"
+      />
+    </p-floatlabel>
+    <p-floatlabel class="w-full">
+      <input type="password" pInputText class="w-full" />
+      <label for="password">Senha</label>
+    </p-floatlabel>
+    <p-button label="Entrar" [rounded]="true" size="large" class="self-end" />
+  </div>
+  <div class="w-full">
+    <img
+      class="bg-gray-400 w-full h-screen object-cover rounded-2xl"
+      alt="Descrição da imagem"
+      src="/login-banner.png"
+    />
+  </div>
+</div>

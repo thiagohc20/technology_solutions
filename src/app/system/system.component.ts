@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { SystemEmployeesComponent } from './system-employees/system-employees.component';
-import { SystemLoginComponent } from './system-login/system-login.component';
-import { SystemInviteComponent } from './system-invite/system-invite.component';
-
+import { RouterOutlet } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-system',
-  imports: [
-    SystemEmployeesComponent,
-    SystemLoginComponent,
-    SystemInviteComponent,
-  ],
+  imports: [RouterOutlet, ButtonModule],
   templateUrl: './system.component.html',
   styleUrl: './system.component.css',
 })
