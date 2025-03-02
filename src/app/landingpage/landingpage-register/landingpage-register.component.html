@@ -1,5 +1,5 @@
 <section class="max-w-[1320px] w-screen py-8 px-4 lg:px-8">
-  <div class="grid grid-cols-2 items-center">
+  <div class="grid md:grid-cols-2 items-center">
     <div class="p-10 flex flex-col gap-2">
       <p class="text-sm text-gray-400">Voce recebeu um convite</p>
       <h2 class="text-4xl font-bold">Bem vindo a Technology Solutions</h2>
@@ -7,60 +7,172 @@
         Preencha todos os dados e se cadastre
       </p>
     </div>
+
     <div class="flex flex-col items-end gap-8 bg-zinc-900 p-10 rounded-2xl">
-      <div class="grid grid-cols-2 gap-8 w-full">
-        <p-floatlabel class="w-full">
-          <input type="name" pInputText class="w-full" />
-          <label for="name">Nome</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <input type="email" pInputText class="w-full" />
-          <label for="email">Email</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <p-inputmask
-            mask="999.999.999-99"
-            placeholder="Exemplo xxx.xxx.xxx-xx"
-            styleClass="w-full"
-          />
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <p-inputmask
-            mask="(99)99999-9999"
-            placeholder="(xx)xxxxx-xxxxx"
-            styleClass="w-full"
-          />
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <p-inputmask
-            mask="99999-999"
-            placeholder="Exemplo xxxxx-xxx"
-            styleClass="w-full"
-          />
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <input type="UF" pInputText class="w-full" />
-          <label for="UF" :required="true">UF</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <input type="locality" pInputText class="w-full" />
-          <label for="locality">Localidade</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <input type="neighborhood" pInputText class="w-full" />
-          <label for="neighborhood">Bairro</label>
-        </p-floatlabel>
-        <p-floatlabel class="w-full">
-          <input type="publicPlace" pInputText class="w-full" />
-          <label for="publicPlace">Logradouro</label>
-        </p-floatlabel>
-      </div>
-      <p-button
-        label="Cadastrar"
-        [rounded]="true"
-        size="large"
-        styleClass="w-full"
-      />
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        #formDir="ngForm"
+        class="flex flex-col gap-6 w-full"
+      >
+        <div>
+          <p-floatlabel class="w-full">
+            <input
+              type="name"
+              pInputText
+              class="w-full"
+              formControlName="name"
+            />
+            <label for="name">Nome</label>
+          </p-floatlabel>
+          <div
+            *ngIf="name?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O nome é obrigatório ou pode estar inválido
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <input
+              [disabled]="true"
+              type="email"
+              pInputText
+              class="w-full"
+              formControlName="email"
+              readonly
+            />
+            <label for="email">Email</label>
+          </p-floatlabel>
+          <div
+            *ngIf="email?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O email é obrigatório ou pode estar inválido
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <p-inputmask
+              mask="999.999.999-99"
+              placeholder="CPF"
+              styleClass="w-full"
+              formControlName="cpf"
+            />
+          </p-floatlabel>
+          <div
+            *ngIf="cpf?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O cpf é obrigatório ou pode estar inválido
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <p-inputmask
+              mask="(99)99999-9999"
+              placeholder="Telefone"
+              styleClass="w-full"
+              formControlName="telephone"
+            />
+          </p-floatlabel>
+          <div
+            *ngIf="telephone?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O número pode estar inválido
+          </div>
+        </div>
+
+        <div>
+          <p-floatlabel class="w-full">
+            <p-inputmask
+              mask="99999-999"
+              placeholder="CEP"
+              styleClass="w-full"
+              formControlName="zipcode"
+              (change)="getCep()"
+            />
+          </p-floatlabel>
+          <div
+            *ngIf="zipcode?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O CEP é obrigatório O CEP pode estar inválido
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <input type="UF" pInputText class="w-full" formControlName="uf" />
+            <label for="UF" :required="true">UF</label>
+          </p-floatlabel>
+          <div
+            *ngIf="uf?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O UF é obrigatório
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <input
+              type="locality"
+              pInputText
+              class="w-full"
+              formControlName="locality"
+            />
+            <label for="locality">Localidade</label>
+          </p-floatlabel>
+          <div
+            *ngIf="locality?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O localidade é obrigatório
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <input
+              type="neighborhood"
+              pInputText
+              class="w-full"
+              formControlName="neighborhood"
+            />
+            <label for="neighborhood">Bairro</label>
+          </p-floatlabel>
+          <div
+            *ngIf="neighborhood?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O bairro é obrigatório
+          </div>
+        </div>
+        <div>
+          <p-floatlabel class="w-full">
+            <input
+              type="publicPlace"
+              pInputText
+              class="w-full"
+              formControlName="publicPlace"
+            />
+            <label for="publicPlace">Logradouro</label>
+          </p-floatlabel>
+          <div
+            *ngIf="publicPlace?.invalid && formDir.submitted"
+            class="text-red-500 mt-2"
+          >
+            O logradouro é obrigatório
+          </div>
+        </div>
+        <p-button
+          label="Cadastrar"
+          [loading]="loading"
+          [rounded]="true"
+          type="submit"
+          size="large"
+          styleClass="w-full"
+        />
+      </form>
     </div>
   </div>
 </section>

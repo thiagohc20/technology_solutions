@@ -50,7 +50,7 @@ export class SystemEmployeesComponent implements OnInit {
     { code: 2, name: 'numero1', category: 'categoria', quantity: 4 },
   ];
 
-  constructor(private cepService: InterceptorsService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.formulario = new FormGroup({
