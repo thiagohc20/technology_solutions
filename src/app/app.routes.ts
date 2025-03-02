@@ -9,6 +9,7 @@ import { LandingpageHireComponent } from './landingpage/landingpage-hire/landing
 /* Sistema */
 import { SystemComponent } from './system/system.component';
 import { SystemLoginComponent } from './system/system-login/system-login.component';
+import { SystemEmployeesComponent } from './system/system-employees/system-employees.component';
 
 import { Routes } from '@angular/router';
 
@@ -53,20 +54,16 @@ export const routes: Routes = [
     component: SystemComponent,
     children: [
       {
-        path: '',
+        path: 'login',
         component: SystemLoginComponent,
       },
       {
-        path: 'cadastrar',
-        component: LandingpageServiceComponent,
-      },
-      {
         path: 'convites',
-        component: LandingpageServiceComponent,
+        component: SystemEmployeesComponent,
       },
       {
-        path: 'colaboradores',
-        component: LandingpageServiceComponent,
+        path: 'painel',
+        component: SystemEmployeesComponent,
       },
     ],
   },

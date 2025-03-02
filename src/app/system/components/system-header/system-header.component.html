@@ -1,0 +1,17 @@
+<header
+  class="flex justify-between gap-2 bg-black p-4 md:p-6 fixed w-full border-b-2 border-slate-900"
+>
+  <h1
+    class="text-lg sm:text-4xl text-white font-bold flex flex-col cursor-pointer hover:text-gray-400"
+    [routerLink]="['/sistema']"
+  >
+    <span>TECHNOLOGY</span><span class="text sm:text-2xl">SOLUTIONS</span>
+  </h1>
+  <div class="flex gap-4 items-center">
+    <div class="flex items-center gap-2">
+      <p-avatar label="T" styleClass="mr-2" size="xlarge" />
+      <p>Olá, Thiago</p>
+    </div>
+    <p-button label="Sair" [rounded]="true" />
+  </div>
+</header>
