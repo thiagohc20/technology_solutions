@@ -1,0 +1,55 @@
+<section class="max-w-[1320px] w-screen py-8 px-4 lg:px-8">
+  <p class="text-2xl mb-2">respostas em até 24h</p>
+  <h2 class="text-5xl font-bold mb-6">Nosso contato</h2>
+  <div class="grid grid-cols-2 items-center">
+    <div class="p-10 flex flex-col gap-8">
+      <div>
+        <h2 class="text-3xl">Contato</h2>
+        <div>
+          <p>+55 82 9999-9999</p>
+          <p>solutionstechnology887gmail.com</p>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-3xl">Endereço</h2>
+        <p>Rua Ali Perto, 42 - Jaqueira Maceió - AL</p>
+        <p>57067-098</p>
+        <i class="pi pi-check"></i>
+      </div>
+    </div>
+    <div class="flex flex-col gap-8 bg-zinc-900 p-10 rounded-2xl">
+      <div class="flex flex-col md:flex-row gap-4">
+        <p-floatlabel class="w-full">
+          <input type="name" pInputText class="w-full" />
+          <label for="name">Nome</label>
+        </p-floatlabel>
+        <p-floatlabel class="w-full">
+          <input type="telephone" pInputText class="w-full" />
+          <label for="telephone">Telefone</label>
+        </p-floatlabel>
+      </div>
+      <p-floatlabel class="w-full">
+        <input type="email" pInputText class="w-full" />
+        <label for="email">Email</label>
+      </p-floatlabel>
+      <p-floatlabel class="w-full">
+        <textarea
+          class="w-full"
+          pTextarea
+          id="message"
+          rows="5"
+          cols="30"
+          style="resize: none"
+        ></textarea>
+        <label for="message">Mensagem</label>
+      </p-floatlabel>
+
+      <p-button
+        label="Enviar Mensagem"
+        [rounded]="true"
+        size="large"
+        class="w-full"
+      />
+    </div>
+  </div>
+</section>

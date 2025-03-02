@@ -3,6 +3,7 @@ import { LandingpageAboutComponent } from './landingpage/landingpage-about/landi
 import { LandingpageHomeComponent } from './landingpage/landingpage-home/landingpage-home.component';
 import { LandingpageServiceComponent } from './landingpage/landingpage-service/landingpage-service.component';
 import { LandingpagePrivacyComponent } from './landingpage/landingpage-privacy/landingpage-privacy.component';
+import { LandingpageContactComponent } from './landingpage/landingpage-contact/landingpage-contact.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -33,7 +34,7 @@ export const routes: Routes = [
       },
       {
         path: 'contato',
-        component: LandingpageServiceComponent,
+        component: LandingpageContactComponent,
       },
       {
         path: 'vagas',
