@@ -56,29 +56,10 @@ export class SystemEmployeesComponent implements OnInit {
     this.formulario = new FormGroup({
       nome: new FormControl('', [Validators.required]),
     });
-
-    this.buscarEndereco();
   }
 
   get nome() {
     return this.formulario.get('nome');
-  }
-
-  buscarEndereco() {
-    if (this.cep.length === 8) {
-      // Verificando se o CEP tem 8 caracteres
-      this.cepService.buscarEndereco(this.cep).subscribe(
-        (response) => {
-          console.log(response);
-          this.endereco = response; // Armazenando os dados de endereço
-          this.erro = ''; // Limpando erro anterior, se houver
-        },
-        (error) => {
-          this.erro = 'Erro ao buscar o endereço! Verifique o CEP.';
-          this.endereco = null; // Limpando o objeto de endereço
-        }
-      );
-    }
   }
 
   onSubmit() {

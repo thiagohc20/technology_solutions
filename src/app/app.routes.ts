@@ -6,6 +6,7 @@ import { LandingpageServiceComponent } from './landingpage/landingpage-service/l
 import { LandingpagePrivacyComponent } from './landingpage/landingpage-privacy/landingpage-privacy.component';
 import { LandingpageContactComponent } from './landingpage/landingpage-contact/landingpage-contact.component';
 import { LandingpageHireComponent } from './landingpage/landingpage-hire/landingpage-hire.component';
+import { LandingpageRegisterComponent } from './landingpage/landingpage-register/landingpage-register.component';
 /* Sistema */
 import { SystemComponent } from './system/system.component';
 import { SystemLoginComponent } from './system/system-login/system-login.component';

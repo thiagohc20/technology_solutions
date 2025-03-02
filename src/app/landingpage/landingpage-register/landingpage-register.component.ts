@@ -5,11 +5,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { TextareaModule } from 'primeng/textarea';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-landingpage-register',
   imports: [
     TextareaModule,
+    HttpClientModule,
     InputTextModule,
     FloatLabel,
     ButtonModule,
