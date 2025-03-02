@@ -4,6 +4,7 @@ import { LandingpageHomeComponent } from './landingpage/landingpage-home/landing
 import { LandingpageServiceComponent } from './landingpage/landingpage-service/landingpage-service.component';
 import { LandingpagePrivacyComponent } from './landingpage/landingpage-privacy/landingpage-privacy.component';
 import { LandingpageContactComponent } from './landingpage/landingpage-contact/landingpage-contact.component';
+import { LandingpageHireComponent } from './landingpage/landingpage-hire/landingpage-hire.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -38,7 +39,7 @@ export const routes: Routes = [
       },
       {
         path: 'vagas',
-        component: LandingpageServiceComponent,
+        component: LandingpageHireComponent,
       },
     ],
   },
@@ -46,6 +47,10 @@ export const routes: Routes = [
     path: 'sistema',
     component: LandingpageComponent,
     children: [
+      {
+        path: '',
+        component: LandingpageServiceComponent,
+      },
       {
         path: 'cadastrar',
         component: LandingpageServiceComponent,
@@ -56,10 +61,6 @@ export const routes: Routes = [
       },
       {
         path: 'colaboradores',
-        component: LandingpageServiceComponent,
-      },
-      {
-        path: 'login',
         component: LandingpageServiceComponent,
       },
     ],
