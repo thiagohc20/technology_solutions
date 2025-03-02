@@ -12,6 +12,7 @@ export class MenuItemComponent {
   @Input() icon: string = '';
   @Input() menuName: string = '';
   @Input() active: boolean = false;
+  @Input() isMenuExpand: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
 }

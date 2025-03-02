@@ -1,14 +1,31 @@
 <header
   *ngIf="currentRoute !== '/sistema/login'"
-  class="flex flex-col gap-4 gap-2 bg-black p-4 md:p-6 fixed border-r-2 border-t-2 border-slate-900 h-full w-[300px] overflow-auto"
+  [ngClass]="isMenuExpand ? 'w-[300px]' : 'w-[90px] md:p-6'"
+  class="flex flex-col gap-4 gap-2 bg-black p-4 fixed border-r-2 border-t-2 border-slate-900 h-full overflow-auto"
 >
-  <div class="flex flex-col gap-2">
+  <div
+    class="flex flex-col gap-2"
+    [ngClass]="{ 'items-center': !isMenuExpand }"
+  >
+    <app-menu-item
+      [icon]="'fa-solid fa-plus'"
+      [menuName]="'Expandir'"
+      (click)="toggleState()"
+      [isMenuExpand]="!isMenuExpand"
+    ></app-menu-item>
     <app-menu-item
       *ngFor="let route of routes"
       [icon]="route.data?.icon"
       [menuName]="route.data?.name"
       [active]="isActive(route.path)"
       [routerLink]="route.data.to"
+      [isMenuExpand]="!isMenuExpand"
+    ></app-menu-item>
+    <app-menu-item
+      [icon]="'fa-solid fa-home'"
+      [menuName]="'Portifolio'"
+      [routerLink]="'/portifolio/'"
+      [isMenuExpand]="!isMenuExpand"
     ></app-menu-item>
   </div>
 </header>

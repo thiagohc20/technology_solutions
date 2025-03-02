@@ -10,6 +10,7 @@ import { LandingpageHireComponent } from './landingpage/landingpage-hire/landing
 import { SystemComponent } from './system/system.component';
 import { SystemLoginComponent } from './system/system-login/system-login.component';
 import { SystemEmployeesComponent } from './system/system-employees/system-employees.component';
+import { SystemChartComponent } from './system/system-chart/system-chart.component';
 
 import { Routes } from '@angular/router';
 
@@ -67,7 +68,7 @@ export const routes: Routes = [
       },
       {
         path: 'painel',
-        component: SystemEmployeesComponent,
+        component: SystemChartComponent,
         data: {
           name: 'Painel',
           icon: 'fa-solid fa-chart-pie',
@@ -79,7 +80,7 @@ export const routes: Routes = [
         component: SystemEmployeesComponent,
         data: {
           name: 'Colaboradores',
-          icon: 'fa-solid fa-chart-pie',
+          icon: 'fa-solid fa-users',
           to: '/sistema/colaboradores',
         },
       },

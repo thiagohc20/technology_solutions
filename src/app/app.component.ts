@@ -5,6 +5,7 @@ import { ComponentsModule } from './landingpage/landingpage.module';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, ComponentsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
