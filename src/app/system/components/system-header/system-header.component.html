@@ -1,4 +1,5 @@
 <header
+  *ngIf="currentRoute != '/sistema/login'"
   class="flex justify-between gap-2 bg-black p-4 md:p-6 fixed w-full border-b-2 border-slate-900"
 >
   <h1
@@ -9,7 +10,7 @@
   </h1>
   <div class="flex gap-4 items-center">
     <div class="flex items-center gap-2">
-      <p-avatar label="T" styleClass="mr-2" size="xlarge" />
+      <p-avatar label="T" styleClass="mr-2" size="large" shape="circle" />
       <p>Olá, Thiago</p>
     </div>
     <p-button label="Sair" [rounded]="true" />

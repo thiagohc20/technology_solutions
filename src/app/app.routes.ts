@@ -54,16 +54,43 @@ export const routes: Routes = [
     component: SystemComponent,
     children: [
       {
-        path: 'login',
-        component: SystemLoginComponent,
+        path: '',
+        redirectTo: 'painel',
+        pathMatch: 'prefix',
       },
       {
-        path: 'convites',
-        component: SystemEmployeesComponent,
+        path: 'login',
+        component: SystemLoginComponent,
+        data: {
+          name: 'Login',
+        },
       },
       {
         path: 'painel',
         component: SystemEmployeesComponent,
+        data: {
+          name: 'Painel',
+          icon: 'fa-solid fa-chart-pie',
+          to: '/sistema/painel',
+        },
+      },
+      {
+        path: 'colaboradores',
+        component: SystemEmployeesComponent,
+        data: {
+          name: 'Colaboradores',
+          icon: 'fa-solid fa-chart-pie',
+          to: '/sistema/colaboradores',
+        },
+      },
+      {
+        path: 'convites',
+        component: SystemEmployeesComponent,
+        data: {
+          name: 'Convites',
+          icon: 'fa-solid fa-user-plus',
+          to: '/sistema/convites',
+        },
       },
     ],
   },

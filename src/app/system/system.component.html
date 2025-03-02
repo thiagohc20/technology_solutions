@@ -1,2 +1,5 @@
 <app-system-header></app-system-header>
-<router-outlet></router-outlet>
+<div class="pt-30" [ngClass]="{ 'pt-30': currentRoute != '/sistema/login' }">
+  <app-system-menu></app-system-menu>
+  <router-outlet></router-outlet>
+</div>
