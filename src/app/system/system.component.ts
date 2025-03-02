@@ -20,7 +20,7 @@ import { SystemMenuComponent } from './components/system-menu/system-menu.compon
 })
 export class SystemComponent implements OnInit {
   currentRoute: string = window.location.pathname;
-  state: boolean = false;
+  isMenuExpand: boolean = false;
 
   constructor(private menuService: SystemMenuService) {}
 
@@ -28,7 +28,7 @@ export class SystemComponent implements OnInit {
     // Se inscrevendo no serviço para monitorar mudanças
     this.menuService.state$.subscribe((newState) => {
       console.log(newState);
-      this.state = newState;
+      this.isMenuExpand = newState;
 
       console.log('A variável mudou de true para false!');
     });

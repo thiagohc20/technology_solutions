@@ -1,9 +1,13 @@
 <app-system-header></app-system-header>
 <div class="pt-30" [ngClass]="{ 'pt-30': currentRoute != '/sistema/login' }">
   <app-system-menu></app-system-menu>
-  <div class="pt-8 ml-[380px]">
-    {{ state }}
-    <p (click)="toggleState()">Botao</p>
+  <div
+    [ngClass]="{
+      'ml-[320px]': isMenuExpand,
+      'ml-30': !isMenuExpand && currentRoute != '/sistema/login',
+      'pt-8': currentRoute != '/sistema/login'
+    }"
+  >
     <router-outlet></router-outlet>
   </div>
 </div>
