@@ -48,6 +48,10 @@ export const routes: Routes = [
         path: 'vagas',
         component: LandingpageHireComponent,
       },
+      {
+        path: 'cadastrar',
+        component: LandingpageRegisterComponent,
+      },
     ],
   },
   {
