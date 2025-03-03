@@ -24,7 +24,6 @@ import { CommonModule } from '@angular/common';
   imports: [
     ToastModule,
     TextareaModule,
-    HttpClientModule,
     ReactiveFormsModule,
     InputTextModule,
     FloatLabel,
@@ -66,7 +65,8 @@ export class SystemLoginComponent implements OnInit {
         (data) => {
           console.log(data);
           this.authService.setToken(data.token);
-          this.router.navigate(['/sistema/painel']);
+          this.authService.setCookie(data.refreshToken);
+          this.router.navigateByUrl('/sistema/painel');
         },
         (error) => {
           alert(error.error.message);

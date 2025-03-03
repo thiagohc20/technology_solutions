@@ -33,7 +33,7 @@ export class AuthService {
 
   logout() {
     this.removeToken();
-    this.router.navigate(['/sistema/login']);
+    this.router.navigateByUrl('/sistema/login');
   }
 
   refreshToken(refreshToken: string) {
@@ -50,5 +50,8 @@ export class AuthService {
   }
   getToken(token: string) {
     localStorage.getItem('token');
+  }
+  setCookie(token: string) {
+    document.cookie = `refreshToken=${token}`;
   }
 }

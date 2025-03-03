@@ -27,10 +27,7 @@ export class SystemComponent implements OnInit {
   ngOnInit(): void {
     // Se inscrevendo no serviço para monitorar mudanças
     this.menuService.state$.subscribe((newState) => {
-      console.log(newState);
       this.isMenuExpand = newState;
-
-      console.log('A variável mudou de true para false!');
     });
   }
 

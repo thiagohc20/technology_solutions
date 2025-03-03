@@ -1,29 +1,46 @@
 <div class="flex flex-col gap-8">
   <h2 class="text-3xl font-bold">Colaboradores</h2>
-  <div class="flex justify-end w-full">
-    <p-button (click)="showDialog()" label="Show" />
+  <div class="w-full flex justify-between">
+    <div class="card flex justify-center">
+      <input
+        type="email"
+        pInputText
+        class="w-full"
+        [(ngModel)]="search"
+        placeholder="Pesquisar"
+      />
+    </div>
+    <p-button
+      label="Exportar"
+      [loading]="loading"
+      [rounded]="true"
+      type="submit"
+      size="large"
+      styleClass="w-full"
+      (click)="downloadFile()"
+    />
   </div>
   <p-table
-    [value]="products"
+    [value]="filteredEmployees"
     [tableStyle]="{ 'min-width': '50rem' }"
     selectionMode="single"
-    (onRowSelect)="selecionado($event.data)"
+    (onRowSelect)="selected($event.data)"
     [metaKeySelection]="true"
   >
     <ng-template #header>
       <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Quantity</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>CPF</th>
       </tr>
     </ng-template>
-    <ng-template #body let-product>
-      <tr [pSelectableRow]="product">
-        <td>{{ product.code }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
-        <td>{{ product.quantity }}</td>
+    <ng-template #body let-employee>
+      <tr [pSelectableRow]="employee">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.cpf }}</td>
       </tr>
     </ng-template>
   </p-table>
@@ -33,24 +50,85 @@
     [modal]="true"
     [dismissableMask]="true"
     [(visible)]="visible"
-    [style]="{ width: '25rem' }"
+    [style]="{ width: '50rem' }"
   >
-    <span class="p-text-secondary block mb-8">Update your information.</span>
-    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" #formDir="ngForm">
-      <p-floatlabel class="w-full">
-        <input
-          id="nome"
-          type="text"
-          pInputText
-          class="w-full"
-          formControlName="nome"
-          required
-        />
-        <label for="nome">Senha</label>
-      </p-floatlabel>
-      <div *ngIf="nome?.invalid && formDir.submitted" class="text-red-500 mt-2">
-        A senha é obrigatória
+    <div class="flex flex-col gap-4 mb-6">
+      <h2 class="text-2xl font-bold">{{ selectedEmployee?.name }}</h2>
+
+      <div class="grid grid-cols-2 gap-4 w-full">
+        <div class="flex flex-col gap-2">
+          <p class="text-xl font-bold">Perfil Atual</p>
+          <p>{{ selectedEmployee?.user?.profile?.name }}</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xl font-bold">Altere o perfil</p>
+
+          <form
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()"
+            #formDir="ngForm"
+            class="flex flex-col gap-4"
+          >
+            <div>
+              <p-select
+                [options]="profiles"
+                optionLabel="name"
+                placeholder="Selecione um perfil"
+                class="w-full"
+                formControlName="profileId"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                form.get('profileId')?.value.id == 1 ||
+                form.get('profileId')?.value.id == 2
+              "
+              class="mt-4"
+            >
+              <p-floatlabel class="w-full">
+                <input
+                  type="password"
+                  pInputText
+                  class="w-full"
+                  formControlName="password"
+                />
+                <label for="password">Senha</label>
+              </p-floatlabel>
+              <div
+                *ngIf="password?.invalid && formDir.submitted"
+                class="text-red-500 mt-2"
+              >
+                A senha é obrigatória
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-xl font-bold">Dados Pessoais</p>
+          <li>{{ selectedEmployee?.email }}</li>
+          <li>{{ selectedEmployee?.cpf }}</li>
+          <li>{{ selectedEmployee?.telephone }}</li>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xl font-bold">Endereço</p>
+          <li>{{ selectedEmployee?.publicPlace }}</li>
+          <li>{{ selectedEmployee?.zipcode }}</li>
+          <li>{{ selectedEmployee?.neighborhood }}</li>
+          <li>{{ selectedEmployee?.locality }}</li>
+        </div>
       </div>
-    </form>
+    </div>
+    <p-button
+      label="Atualizar Perfil"
+      [loading]="loading"
+      [rounded]="true"
+      type="submit"
+      size="large"
+      styleClass="w-full"
+      (click)="onSubmit()"
+    />
   </p-dialog>
 </div>

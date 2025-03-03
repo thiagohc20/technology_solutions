@@ -13,6 +13,11 @@
       <p-avatar label="T" styleClass="mr-2" size="large" shape="circle" />
       <p>Olá, Thiago</p>
     </div>
-    <p-button label="Sair" [rounded]="true" />
+    <p-button
+      label="Sair"
+      [rounded]="true"
+      (click)="logout()"
+      [routerLink]="'/sistema/login'"
+    />
   </div>
 </header>
