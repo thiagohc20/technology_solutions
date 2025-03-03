@@ -119,7 +119,7 @@ export class SystemEmployeesComponent implements OnInit {
   }
   getEmployees() {
     this.employeeService.getEmployees().subscribe((data) => {
-      this.employees = data;
+      this.employees = data.filter((item) => {});
     });
   }
 
@@ -140,7 +140,9 @@ export class SystemEmployeesComponent implements OnInit {
           this.visible = false;
           this.form.reset();
         },
-        (error) => {}
+        (error) => {
+          alert(error.error.message);
+        }
       );
       this.loading = false;
     }
@@ -170,17 +172,22 @@ export class SystemEmployeesComponent implements OnInit {
   }
 
   downloadFile() {
-    this.employeeService.export(this.search).subscribe((blob: Blob) => {
-      const url = window.URL.createObjectURL(blob); // Cria uma URL temporária para o Blob
+    this.employeeService.export(this.search).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob); // Cria uma URL temporária para o Blob
 
-      // Criando o link de download
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'arquivo.xlsx'; // Nome do arquivo que será baixado
-      a.click(); // Simula o clique para o download
+        // Criando o link de download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'arquivo.xlsx'; // Nome do arquivo que será baixado
+        a.click(); // Simula o clique para o download
 
-      // Libera o URL após o download
-      window.URL.revokeObjectURL(url);
-    });
+        // Libera o URL após o download
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        alert(error.error.message);
+      }
+    );
   }
 }

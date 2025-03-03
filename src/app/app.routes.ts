@@ -12,6 +12,7 @@ import { SystemComponent } from './system/system.component';
 import { SystemLoginComponent } from './system/system-login/system-login.component';
 import { SystemEmployeesComponent } from './system/system-employees/system-employees.component';
 import { SystemChartComponent } from './system/system-chart/system-chart.component';
+import { SystemInviteComponent } from './system/system-invite/system-invite.component';
 
 import { Routes } from '@angular/router';
 
@@ -21,6 +22,7 @@ export const routes: Routes = [
     redirectTo: 'portifolio',
     pathMatch: 'full',
   },
+
   {
     path: 'portifolio',
     component: LandingpageComponent,
@@ -56,20 +58,20 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'login',
+    component: SystemLoginComponent,
+    data: {
+      name: 'Login',
+    },
+  },
+  {
     path: 'sistema',
     component: SystemComponent,
     children: [
       {
         path: '',
         redirectTo: 'painel',
-        pathMatch: 'prefix',
-      },
-      {
-        path: 'login',
-        component: SystemLoginComponent,
-        data: {
-          name: 'Login',
-        },
+        pathMatch: 'full',
       },
       {
         path: 'painel',
@@ -81,17 +83,17 @@ export const routes: Routes = [
         },
       },
       {
-        path: 'colaboradores',
+        path: 'gerencial',
         component: SystemEmployeesComponent,
         data: {
-          name: 'Colaboradores',
+          name: 'Gerencial',
           icon: 'fa-solid fa-users',
-          to: '/sistema/colaboradores',
+          to: '/sistema/gerencial',
         },
       },
       {
         path: 'convites',
-        component: SystemEmployeesComponent,
+        component: SystemInviteComponent,
         data: {
           name: 'Convites',
           icon: 'fa-solid fa-user-plus',
@@ -99,5 +101,9 @@ export const routes: Routes = [
         },
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: 'portifolio',
   },
 ];

@@ -135,6 +135,7 @@ export class LandingpageRegisterComponent implements OnInit {
       this.registerService.postRegister(this.form.value).subscribe(
         (data: any) => {
           alert('Usuário cadastrado com sucesso');
+          this.form.reset();
         },
         (error: any) => {
           alert(error.error.message);
