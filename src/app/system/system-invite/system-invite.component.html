@@ -19,6 +19,15 @@
       styleClass="w-full"
       (click)="setIsVisible()"
     />
+    <p-button
+      label="Atualizar registro"
+      [loading]="loading"
+      [rounded]="true"
+      type="submit"
+      size="large"
+      styleClass="w-full"
+      (click)="updateOverdueInvite()"
+    />
   </div>
   <p-table
     [value]="filteredInvites"

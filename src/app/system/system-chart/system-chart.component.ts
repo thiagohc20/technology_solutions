@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  effect,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
-import { InputText } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { EmployeesService } from '../../core/employees.service';
-import { ProfileService } from '../../core/profile.service';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators,
-  FormsModule,
-} from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
+import { InviteService } from '../../core/invite.service';
+import { isPlatformBrowser } from '@angular/common';
+import { ChartModule } from 'primeng/chart';
+
 import { CommonModule } from '@angular/common';
 
 interface Employee {
@@ -26,41 +23,23 @@ interface Employee {
   cpf: string;
 }
 
-interface EmployeeSelected extends Employee {
-  telephone: string;
-  zipcode: string;
-  uf: string;
-  neighborhood: string;
-  publicPlace: string;
-  locality: string;
-  userId: number;
+interface Invite {
+  id: number;
+  statusId: number;
+  email: string;
   created_at: string;
-  user: User;
+  upated_at: string;
 }
 
-interface User {
-  id: number;
-  profile: Profile;
-  created_at: string;
-  updated_at: string;
-}
-interface Profile {
-  id: number;
-  name: string;
-}
 @Component({
   selector: 'app-system-employees',
-  providers: [EmployeesService, ProfileService],
+  providers: [EmployeesService, InviteService],
   imports: [
     TableModule,
-    DialogModule,
-    FormsModule,
     ButtonModule,
     InputTextModule,
-    SelectModule,
-    ReactiveFormsModule,
     CommonModule,
-    FloatLabel,
+    ChartModule,
   ],
   templateUrl: './system-chart.component.html',
   styleUrl: './system-chart.component.css',
@@ -68,64 +47,171 @@ interface Profile {
 export class SystemChartComponent implements OnInit {
   search: string = '';
   loading: boolean = false;
-  form!: FormGroup;
-  visible: boolean = false;
-  isEditing: boolean = false;
   employees: Employee[] = [];
-  profiles: Profile[] = [];
-  selectedEmployee: EmployeeSelected | null = null;
+  invites: Invite[] = [];
+  employeeData: any;
+  inviteData: any;
+  employeeOptions: any;
+  inviteOptions: any;
+  platformId = inject(PLATFORM_ID);
 
   constructor(
+    private cd: ChangeDetectorRef,
     private employeeService: EmployeesService,
-    private profileService: ProfileService,
-    private fb: FormBuilder
+    private inviteService: InviteService
   ) {}
 
   ngOnInit() {
-    this.form = this.fb.group({
-      userId: new FormControl(''),
-      employeeId: new FormControl(''),
-      profileId: new FormControl('', [Validators.required]),
-      password: new FormControl('', []),
-    });
-
-    this.form.get('profile')?.valueChanges.subscribe((profile) => {
-      const passwordControl = this.form.get('password');
-      if (profile.id === 1 || profile.id === 2) {
-        passwordControl?.setValidators([Validators.required]);
-      } else {
-        passwordControl?.setValidators([]);
-      }
-
-      passwordControl?.updateValueAndValidity();
-    });
-
     this.getEmployees();
-    this.getProfiles();
+    this.getStatusInvitation();
   }
 
-  get filteredEmployees(): Employee[] {
-    return this.employees.filter((employee) =>
-      employee.name.toLowerCase().includes(this.search.toLowerCase())
-    );
-  }
-
-  get profileId() {
-    return this.form.get('profileId');
-  }
-
-  get password() {
-    return this.form.get('password');
-  }
   getEmployees() {
     this.employeeService.getEmployees().subscribe((data) => {
       this.employees = data;
+      this.checkIfDataLoaded();
     });
   }
 
-  getProfiles() {
-    this.profileService.getProfile().subscribe((data) => {
-      this.profiles = data;
-    });
+  getStatusInvitation() {
+    this.inviteService.getInvites().subscribe(
+      (data) => {
+        this.invites = data;
+        this.checkIfDataLoaded();
+      },
+      (error) => {}
+    );
+  }
+
+  checkIfDataLoaded() {
+    if (this.employees.length > 0 && this.invites.length > 0) {
+      this.onDataLoaded();
+    }
+  }
+
+  onDataLoaded() {
+    this.initChart();
+  }
+
+  getInviteLength(id: number): number {
+    const invitesLength = this.invites.filter(
+      (item: Invite) => item.statusId == id
+    ).length;
+
+    return invitesLength;
+  }
+
+  initChart() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--p-text-color');
+      const textColorSecondary = documentStyle.getPropertyValue(
+        '--p-text-muted-color'
+      );
+      const surfaceBorder = documentStyle.getPropertyValue(
+        '--p-content-border-color'
+      );
+
+      this.employeeData = {
+        labels: ['Administrador', 'Gente e Cultura', 'Colaborador Comum'],
+        datasets: [
+          {
+            label: 'Usuários Cadastrados',
+            backgroundColor: documentStyle.getPropertyValue('--p-emerald-500'),
+            borderColor: documentStyle.getPropertyValue('--p-emerald-500'),
+            data: [65, 59, 80],
+          },
+        ],
+      };
+
+      this.inviteData = {
+        labels: ['Finalizado', 'Em Aberto', 'Vencido'],
+        datasets: [
+          {
+            label: 'Convidados',
+            backgroundColor: documentStyle.getPropertyValue('--p-emerald-500'),
+            borderColor: documentStyle.getPropertyValue('--p-emerald-500'),
+            data: [
+              this.getInviteLength(1),
+              this.getInviteLength(2),
+              this.getInviteLength(3),
+            ],
+          },
+        ],
+      };
+
+      this.employeeOptions = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        aspectRatio: 0.8,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                weight: 500,
+              },
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+        },
+      };
+
+      this.inviteOptions = {
+        indexAxis: 'y',
+        maintainAspectRatio: false,
+        aspectRatio: 0.8,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+              font: {
+                weight: 500,
+              },
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+              drawBorder: false,
+            },
+          },
+        },
+      };
+      this.cd.markForCheck();
+    }
   }
 }

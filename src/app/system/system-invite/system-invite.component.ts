@@ -134,6 +134,12 @@ export class SystemInviteComponent implements OnInit {
     return this.severity.find((item) => item.id == id)?.name!;
   }
 
+  updateOverdueInvite() {
+    return this.inviteService.updateOverdueInvite().subscribe(() => {
+      this.getInvites();
+    });
+  }
+
   setIsVisible() {
     this.visible = true;
   }

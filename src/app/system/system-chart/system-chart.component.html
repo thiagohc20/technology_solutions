@@ -1,3 +1,16 @@
-<section class="flex flex-col gap-8">
+<section class="flex flex-col gap-8 h-full">
   <h2 class="text-3xl font-bold">Painel</h2>
+
+  <p-chart
+    type="bar"
+    [data]="inviteData"
+    [options]="inviteOptions"
+    class="w-full"
+  />
+  <p-chart
+    type="bar"
+    [data]="employeeData"
+    [options]="employeeOptions"
+    class="w-full"
+  />
 </section>

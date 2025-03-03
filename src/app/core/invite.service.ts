@@ -30,4 +30,8 @@ export class InviteService {
       },
     });
   }
+
+  updateOverdueInvite(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/status_invitation/update`);
+  }
 }
