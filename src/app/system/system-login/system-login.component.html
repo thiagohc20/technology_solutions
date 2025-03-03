@@ -1,24 +1,62 @@
 <div class="h-screen flex w-full">
   <div
-    class="flex flex-col gap-4 justify-center w-full w-full max-w-[500px] p-8 bg-zinc-900"
+    class="flex flex-col gap-4 justify-center w-full w-full max-w-[600px] p-8 bg-zinc-900"
   >
     <h1 class="text-lg sm:text-4xl text-white font-bold flex flex-col">
-      <span>TECHNOLOGY</span><span class="text sm:text-2xl">SOLUTIONS</span>
+      <span>Gerenciamento</span
+      ><span class="text sm:text-2xl">colaboradores</span>
     </h1>
-    <p-floatlabel class="w-full">
-      <p-inputmask
-        mask="999.999.999-99"
-        placeholder="Exemplo xxx.xxx.xxx-xx"
+    <form
+      [formGroup]="form"
+      (ngSubmit)="login()"
+      #formDir="ngForm"
+      class="flex flex-col gap-6 w-full"
+    >
+      <div>
+        <p-floatlabel class="w-full">
+          <p-inputmask
+            mask="999.999.999-99"
+            placeholder="CPF"
+            styleClass="w-full"
+            formControlName="cpf"
+          />
+        </p-floatlabel>
+        <div
+          *ngIf="cpf?.invalid && formDir.submitted"
+          class="text-red-500 mt-2"
+        >
+          O cpf é obrigatório ou pode estar inválido
+        </div>
+      </div>
+      <div>
+        <p-floatlabel class="w-full">
+          <input
+            type="password"
+            pInputText
+            class="w-full"
+            formControlName="password"
+          />
+          <label for="password">Senha</label>
+        </p-floatlabel>
+        <div
+          *ngIf="password?.invalid && formDir.submitted"
+          class="text-red-500 mt-2"
+        >
+          A senha é obrigatória
+        </div>
+      </div>
+
+      <p-button
+        label="Entrar"
+        [loading]="loading"
+        [rounded]="true"
+        type="submit"
+        size="large"
         styleClass="w-full"
       />
-    </p-floatlabel>
-    <p-floatlabel class="w-full">
-      <input type="password" pInputText class="w-full" />
-      <label for="password">Senha</label>
-    </p-floatlabel>
-    <p-button label="Entrar" [rounded]="true" size="large" class="self-end" />
+    </form>
   </div>
-  <div class="w-full">
+  <div class="w-full hidden sm:block">
     <img
       class="bg-gray-400 w-full h-screen object-cover rounded-2xl"
       alt="Descrição da imagem"

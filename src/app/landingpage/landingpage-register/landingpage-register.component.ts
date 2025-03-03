@@ -10,9 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterService } from '../../core/register.service';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Toast } from 'primeng/toast';
 import { ToastModule } from 'primeng/toast';
-import { Ripple } from 'primeng/ripple';
 
 import {
   FormGroup,
@@ -27,7 +25,6 @@ import { CommonModule } from '@angular/common';
   providers: [RegisterService, MessageService],
   imports: [
     ToastModule,
-
     TextareaModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -137,15 +134,10 @@ export class LandingpageRegisterComponent implements OnInit {
     if (this.form.valid) {
       this.registerService.postRegister(this.form.value).subscribe(
         (data: any) => {
-          console.log(data);
+          alert('Usuário cadastrado com sucesso');
         },
         (error: any) => {
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Info',
-            detail: 'Message Content',
-            life: 3000,
-          });
+          alert(error.error.message);
         }
       );
     }
