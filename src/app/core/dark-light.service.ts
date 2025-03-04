@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'platform',
 })
-export class SystemMenuService {
+export class DarkLightService {
   private stateSubject = new BehaviorSubject<boolean>(false);
 
   state$ = this.stateSubject.asObservable();

@@ -9,4 +9,6 @@ import { AuthService } from '../../../core/auth.service';
   templateUrl: './landingpage-header.component.html',
   styleUrl: './landingpage-header.component.css',
 })
-export class LandingpageHeaderComponent {}
+export class LandingpageHeaderComponent {
+  constructor() {}
+}

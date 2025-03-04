@@ -1,3 +1,4 @@
+import { authGuard } from './guards/auth-guard.guard';
 /*LandingPage */
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LandingpageAboutComponent } from './landingpage/landingpage-about/landingpage-about.component';
@@ -67,6 +68,7 @@ export const routes: Routes = [
   {
     path: 'sistema',
     component: SystemComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

@@ -84,6 +84,7 @@ export class SystemChartComponent implements OnInit {
   getUsersLength() {
     this.employeeService.getUsersLength().subscribe((data) => {
       this.usersLenght = data;
+      console.log(this.usersLenght);
     });
   }
 
