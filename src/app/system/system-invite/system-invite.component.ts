@@ -56,6 +56,7 @@ interface Severity {
 })
 export class SystemInviteComponent implements OnInit {
   search: string = '';
+  updatedAt: string = '';
   form!: FormGroup;
   loading: boolean = false;
   status: Status[] = [];
@@ -89,6 +90,7 @@ export class SystemInviteComponent implements OnInit {
 
     this.getInvites();
     this.getAllStatus();
+    this.updateOverdueInvite();
   }
 
   getInvites() {
@@ -134,9 +136,27 @@ export class SystemInviteComponent implements OnInit {
     return this.severity.find((item) => item.id == id)?.name!;
   }
 
+  getFormattedDateTime(value: Date) {
+    const day = String(value.getDate()).padStart(2, '0');
+    const month = String(value.getMonth() + 1).padStart(2, '0'); // Mês é baseado em 0, então somamos 1
+    const year = value.getFullYear();
+
+    const hours = String(value.getHours()).padStart(2, '0');
+    const minutes = String(value.getMinutes()).padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+
+  getUpdateOverdueInvite() {
+    this.updatedAt = localStorage.getItem('updatedInvite')!;
+  }
+
   updateOverdueInvite() {
     return this.inviteService.updateOverdueInvite().subscribe(() => {
       this.getInvites();
+      const date = new Date();
+      localStorage.setItem('updatedInvite', this.getFormattedDateTime(date));
+      this.updatedAt = this.getFormattedDateTime(date);
     });
   }
 

@@ -6,7 +6,6 @@ import { InputText } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { EmployeesService } from '../../core/employees.service';
 import { ProfileService } from '../../core/profile.service';
 import {
@@ -119,7 +118,7 @@ export class SystemEmployeesComponent implements OnInit {
   }
   getEmployees() {
     this.employeeService.getEmployees().subscribe((data) => {
-      this.employees = data.filter((item) => {});
+      this.employees = data.sort((a, b) => a.name.localeCompare(b.name));
     });
   }
 

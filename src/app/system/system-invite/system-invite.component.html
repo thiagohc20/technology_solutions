@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-8">
   <h2 class="text-3xl font-bold">Convites</h2>
-  <div class="w-full flex justify-between">
+  <div class="w-full flex flex-col sm:flex-row justify-between">
     <div class="card flex justify-between">
       <input
         type="email"
@@ -8,26 +8,31 @@
         class="w-full"
         [(ngModel)]="search"
         placeholder="Pesquisar"
+        class="w-full"
       />
     </div>
-    <p-button
-      label="Convidar"
-      [loading]="loading"
-      [rounded]="true"
-      type="submit"
-      size="large"
-      styleClass="w-full"
-      (click)="setIsVisible()"
-    />
-    <p-button
-      label="Atualizar registro"
-      [loading]="loading"
-      [rounded]="true"
-      type="submit"
-      size="large"
-      styleClass="w-full"
-      (click)="updateOverdueInvite()"
-    />
+    <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+      <p class="text-sm">Atualizado - {{ updatedAt }}</p>
+
+      <p-button
+        label="Convidar"
+        [loading]="loading"
+        [rounded]="true"
+        type="submit"
+        size="large"
+        styleClass="w-full"
+        (click)="setIsVisible()"
+      />
+      <p-button
+        label="Atualizar registro"
+        [loading]="loading"
+        [rounded]="true"
+        type="submit"
+        size="large"
+        styleClass="w-full"
+        (click)="updateOverdueInvite()"
+      />
+    </div>
   </div>
   <p-table
     [value]="filteredInvites"

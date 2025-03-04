@@ -31,6 +31,12 @@ interface Invite {
   upated_at: string;
 }
 
+interface usersLenght {
+  manager: number;
+  pd: number;
+  employeeNormal: number;
+}
+
 @Component({
   selector: 'app-system-employees',
   providers: [EmployeesService, InviteService],
@@ -53,6 +59,7 @@ export class SystemChartComponent implements OnInit {
   inviteData: any;
   employeeOptions: any;
   inviteOptions: any;
+  usersLenght: usersLenght | null = null;
   platformId = inject(PLATFORM_ID);
 
   constructor(
@@ -64,12 +71,19 @@ export class SystemChartComponent implements OnInit {
   ngOnInit() {
     this.getEmployees();
     this.getStatusInvitation();
+    this.getUsersLength();
   }
 
   getEmployees() {
     this.employeeService.getEmployees().subscribe((data) => {
       this.employees = data;
       this.checkIfDataLoaded();
+    });
+  }
+
+  getUsersLength() {
+    this.employeeService.getUsersLength().subscribe((data) => {
+      this.usersLenght = data;
     });
   }
 
@@ -84,7 +98,11 @@ export class SystemChartComponent implements OnInit {
   }
 
   checkIfDataLoaded() {
-    if (this.employees.length > 0 && this.invites.length > 0) {
+    if (
+      this.employees.length > 0 &&
+      this.invites.length > 0 &&
+      this.usersLenght
+    ) {
       this.onDataLoaded();
     }
   }
@@ -119,7 +137,11 @@ export class SystemChartComponent implements OnInit {
             label: 'Usuários Cadastrados',
             backgroundColor: documentStyle.getPropertyValue('--p-emerald-500'),
             borderColor: documentStyle.getPropertyValue('--p-emerald-500'),
-            data: [65, 59, 80],
+            data: [
+              this.usersLenght?.manager,
+              this.usersLenght?.pd,
+              this.usersLenght?.employeeNormal,
+            ],
           },
         ],
       };

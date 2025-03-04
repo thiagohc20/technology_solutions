@@ -40,6 +40,13 @@ interface UpdateEmployee {
   profileId: Profile;
   password?: string;
 }
+
+interface UsersLength {
+  manager: number;
+  pd: number;
+  employeeNormal: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -54,6 +61,10 @@ export class EmployeesService {
 
   getEmployee(id: number): Observable<EmployeeSelected> {
     return this.http.get<any>(`${this.baseUrl}/employees/${id}`);
+  }
+
+  getUsersLength(): Observable<UsersLength> {
+    return this.http.get<any>(`${this.baseUrl}/users/length`);
   }
 
   export(value: string): Observable<Blob> {

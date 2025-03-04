@@ -42,6 +42,10 @@ export class AuthService {
     });
   }
 
+  me() {
+    return this.http.get<any>(`${this.baseUrl}/auth/me`);
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
   }
