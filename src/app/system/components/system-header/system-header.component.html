@@ -10,8 +10,16 @@
   </h1>
   <div class="flex gap-4 items-center">
     <div class="flex items-center gap-2">
-      <p-avatar label="T" styleClass="mr-2" size="large" shape="circle" />
-      <p>Olá, Thiago</p>
+      <p-avatar
+        [label]="me.name.charAt(0)"
+        styleClass="mr-2"
+        size="large"
+        shape="circle"
+      />
+      <div>
+        <p>Olá, {{ me.name }}</p>
+        <p class="text-sm">{{ me.user.profile.name }}</p>
+      </div>
     </div>
     <p-button label="Sair" [rounded]="true" [routerLink]="'/login'" />
   </div>
