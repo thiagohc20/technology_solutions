@@ -38,5 +38,5 @@ docker build -t front .
 # Logo após
 
 ```bash
-docker run -p 4200:4200
+docker run -p 4200:4200 front
 ```
